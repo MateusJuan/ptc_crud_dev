@@ -6,6 +6,7 @@ RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists
 WORKDIR /home/node/app
 
 COPY package.json yarn.loc[k] ./
+COPY prisma ./prisma
 RUN yarn install
 
 COPY . .

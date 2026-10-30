@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "concurrently \"ts-node-dev --poll --exit-child -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/servidor.ts\" \"prisma generate --watch\"",
     "generate": "prisma generate",
+    "postinstall": "prisma generate",
     "migration": "cross-env DATABASE_HOST=localhost prisma migrate dev",
     "migration:deploy": "prisma migrate deploy",
     "studio": "cross-env DATABASE_HOST=localhost prisma studio",
