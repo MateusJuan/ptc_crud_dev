@@ -1,2 +1,2 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Força LF: os arquivos rodam dentro de um container Linux
+* text=auto eol=lf
