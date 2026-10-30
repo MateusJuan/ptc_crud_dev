@@ -9,13 +9,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model Usuario {
   id        Int      @id @default(autoincrement())
   nome      String
   conta     Conta
   documento String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("User")
 }
 
 enum Conta {

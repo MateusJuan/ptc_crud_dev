@@ -14,9 +14,9 @@
     "strict": true,
     "baseUrl": "./",
     "paths": {
-      "@controllers/*": ["./src/controllers/*"],
-      "@repositories/*": ["./src/repositories/*"],
-      "@database": ["./src/database"]
+      "@controladores/*": ["./src/controladores/*"],
+      "@repositorios/*": ["./src/repositorios/*"],
+      "@banco": ["./src/banco/conexao"]
     }
   },
   "include": ["src/**/*"]

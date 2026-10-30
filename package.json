@@ -4,17 +4,17 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"ts-node-dev --poll --exit-child -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts\" \"prisma generate --watch\"",
+    "dev": "concurrently \"ts-node-dev --poll --exit-child -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/servidor.ts\" \"prisma generate --watch\"",
     "generate": "prisma generate",
     "migration": "cross-env DATABASE_HOST=localhost prisma migrate dev",
     "migration:deploy": "prisma migrate deploy",
     "studio": "cross-env DATABASE_HOST=localhost prisma studio",
     "typecheck": "tsc --noEmit",
-    "test": "node --test tests/plantas.test.mjs",
-    "seed": "cross-env DATABASE_HOST=localhost node prisma/seed.mjs",
-    "seed:docker": "node prisma/seed.mjs",
+    "test": "node --test testes/plantas.teste.mjs",
+    "seed": "cross-env DATABASE_HOST=localhost node prisma/popularBanco.mjs",
+    "seed:docker": "node prisma/popularBanco.mjs",
     "build": "swc src --strip-leading-paths --out-dir dist",
-    "start": "node dist/server.js",
+    "start": "node dist/servidor.js",
     "prod": "yarn migration:deploy && yarn build && yarn start"
   },
   "dependencies": {

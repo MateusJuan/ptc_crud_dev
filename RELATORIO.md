@@ -10,9 +10,11 @@ As validações aceitam estoque zero e petFriendly false, rejeitam números envi
 
 ## Como foi feito
 
-Primeiro foi importado o projeto-base com o CRUD de usuários. Depois foram preparados Docker Desktop, WSL 2 e PostgreSQL, e o CRUD existente foi testado. Em seguida foram criados o modelo e a migration das plantas, depois o repository, o controller, as rotas, os bônus e os testes HTTP. O trabalho permaneceu em main por solicitação do usuário.
+Por preferência do usuário, as funções, variáveis, arquivos e pastas da aplicação foram renomeados em português. Os imports, os testes, a compilação e os comandos de execução foram atualizados. O modelo Usuario preserva a tabela User com `@@map`, sem mudança física no banco. Os campos exigidos pelo desafio e os identificadores das bibliotecas foram preservados.
 
-Foi mantida a separação do projeto: controller para validação e respostas; repository para acesso ao Prisma. Os preços são inteiros em centavos. A lista permite combinar os filtros em uma consulta. O total do estoque é calculado em código a partir de preço e quantidade. Foi usada uma soma BigInt para evitar arredondamento e verificado o limite antes de responder em JSON.
+Primeiro foi importado o projeto-base com o CRUD de usuários. Depois foram preparados Docker Desktop, WSL 2 e PostgreSQL, e o CRUD existente foi testado. Em seguida foram criados o modelo e a migration das plantas, depois o repositório, o controlador, as rotas, os bônus e os testes HTTP. O trabalho permaneceu em main por solicitação do usuário.
+
+Foi mantida a separação do projeto: controlador para validação e respostas; repositório para acesso ao Prisma. Os preços são inteiros em centavos. A lista permite combinar os filtros em uma consulta. O total do estoque é calculado em código a partir de preço e quantidade. Foi usada uma soma BigInt para evitar arredondamento e verificado o limite antes de responder em JSON.
 
 ## Dificuldades observadas durante o trabalho
 
@@ -38,7 +40,7 @@ Foi utilizado o Codex, da OpenAI, para preparar o ambiente, ler os requisitos, g
 
 ## Reflexão pessoal a preencher pelo candidato
 
-- O que você entendeu sobre o caminho rota → controller → repository → banco?
+- O que você entendeu sobre o caminho rota → controlador → repositório → banco?
 - Qual validação ou erro teve mais dificuldade de entender e como verificou a solução?
 - Explique com suas palavras por que ler o estoque e decrementar em duas operações independentes permite uma venda indevida.
 - Que partes do código você revisou, alterou ou testou pessoalmente e o que aprendeu com a ajuda de IA?

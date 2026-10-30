@@ -64,7 +64,7 @@ yarn migration
 Para conferir, abra `http://localhost:3001` no navegador. Deve aparecer:
 
 ```json
-{ "message": "API do treinamento de CRUD do CITi 🚀" }
+{ "mensagem": "API do treinamento de CRUD do CITi 🚀" }
 ```
 
 ### O `.env`
@@ -102,17 +102,17 @@ prisma/
   schema.prisma          # Models (tabelas) do banco
   migrations/            # Histórico de mudanças no banco, gerado pelo yarn migration
 src/
-  server.ts              # Cria o app Express e sobe o servidor
-  routes.ts              # Liga cada rota HTTP a uma função do controller
-  database/index.ts      # Conexão com o banco (Prisma Client)
-  controllers/           # Recebe a requisição, valida e responde
-  repositories/          # Única camada que conversa com o banco
+  servidor.ts            # Cria a aplicação Express e sobe o servidor
+  rotas.ts               # Liga cada rota HTTP a uma função do controlador
+  banco/conexao.ts       # Conexão com o banco (Prisma Client)
+  controladores/         # Recebe a requisição, valida e responde
+  repositorios/          # Única camada que conversa com o banco
 ```
 
 O caminho de uma requisição:
 
 ```
-Requisição → routes.ts → Controller → Repository → Banco
+Requisição → rotas.ts → Controlador → Repositório → Banco
                               ↓
 Resposta  ←───────────────────┘  (status HTTP + JSON)
 ```

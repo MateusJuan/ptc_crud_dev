@@ -1,36 +1,36 @@
 import { Prisma } from "@prisma/client";
-import prisma from "@database";
+import prisma from "@banco";
 
-export const createPlanta = (data: Prisma.PlantaCreateInput) =>
-  prisma.planta.create({ data });
+export const criarPlanta = (dados: Prisma.PlantaCreateInput) =>
+  prisma.planta.create({ data: dados });
 
-export const findAllPlantas = (
-  where: Prisma.PlantaWhereInput = {},
-  orderBy: Prisma.PlantaOrderByWithRelationInput = { id: "asc" },
-) => prisma.planta.findMany({ where, orderBy });
+export const buscarTodasPlantas = (
+  filtros: Prisma.PlantaWhereInput = {},
+  ordenacao: Prisma.PlantaOrderByWithRelationInput = { id: "asc" },
+) => prisma.planta.findMany({ where: filtros, orderBy: ordenacao });
 
-export const findPlantaById = (id: number) =>
+export const buscarPlantaPorId = (id: number) =>
   prisma.planta.findUnique({ where: { id } });
 
-export const updatePlanta = (id: number, data: Prisma.PlantaUpdateInput) =>
-  prisma.planta.update({ where: { id }, data });
+export const atualizarPlanta = (id: number, dados: Prisma.PlantaUpdateInput) =>
+  prisma.planta.update({ where: { id }, data: dados });
 
-export const deletePlanta = (id: number) =>
+export const excluirPlanta = (id: number) =>
   prisma.planta.delete({ where: { id } });
 
-export const sellPlanta = (id: number, quantidade: number) =>
-  prisma.$transaction(async (transaction) => {
+export const venderPlanta = (id: number, quantidade: number) =>
+  prisma.$transaction(async (transacao) => {
     // A condição e o decremento acontecem juntos no banco: duas vendas
     // simultâneas não conseguem consumir o mesmo último vaso.
-    const result = await transaction.planta.updateMany({
+    const resultado = await transacao.planta.updateMany({
       where: { id, estoque: { gte: quantidade } },
       data: { estoque: { decrement: quantidade } },
     });
-    const planta = await transaction.planta.findUnique({ where: { id } });
-    return { sold: result.count === 1, planta };
+    const planta = await transacao.planta.findUnique({ where: { id } });
+    return { vendaRealizada: resultado.count === 1, planta };
   });
 
-export const getStockValue = async () => {
+export const calcularValorEstoque = async () => {
   const plantas = await prisma.planta.findMany({
     select: { preco: true, estoque: true },
   });

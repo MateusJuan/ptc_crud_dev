@@ -123,7 +123,7 @@ Exemplo: `POST /plantas/1/venda` com `{"quantidade": 2}`. Quantidade deve ser um
 
 Id ou quantidade inválidos: 400. Estoque insuficiente: 400, sem alteração do estoque. Planta ausente: 404. Falha inesperada: 500.
 
-O repository usa `updateMany` com `where: { id, estoque: { gte: quantidade } }` e decremento na mesma instrução. A leitura da planta atualizada ocorre na mesma transação. O PostgreSQL reavalia a condição após aguardar escritas concorrentes: apenas uma venda pode consumir o último vaso. Não basta conferir o estoque no controller e decrementar depois.
+O repositório usa `updateMany` com `where: { id, estoque: { gte: quantidade } }` e decremento na mesma instrução. A leitura da planta atualizada ocorre na mesma transação. O PostgreSQL reavalia a condição após aguardar escritas concorrentes: apenas uma venda pode consumir o último vaso. Não basta conferir o estoque no controlador e decrementar depois.
 
 ### GET /plantas/estoque/valor-total
 
@@ -142,13 +142,15 @@ Sem corpo. Retorna 200 com uma lista de plantas cujo estoque é zero, ou `[]`. F
 ## Formato de erro
 
 ```json
-{ "message": "Estoque insuficiente. Temos só 1 vasos." }
+{ "mensagem": "Estoque insuficiente. Temos só 1 vasos." }
 ```
 
-Os erros das rotas de plantas e o JSON malformado retornam JSON com `message`. Erros inesperados são registrados no servidor sem expor detalhes do banco ao cliente. Uma URL não registrada retorna 404.
+Os erros das rotas de plantas e o JSON malformado retornam JSON com `mensagem`. Erros inesperados são registrados no servidor sem expor detalhes do banco ao cliente. Uma URL não registrada retorna 404.
 
 ## Organização e escopo
 
-`src/routes.ts` registra os endereços. `PlantaController.ts` valida e escolhe o status HTTP. `PlantaRepository.ts` é a camada que consulta o Prisma. `prisma/schema.prisma` descreve o modelo e `prisma/migrations/` contém o histórico SQL. `tests/plantas.test.mjs` testa a API real com PostgreSQL, incluindo oito vendas simultâneas do último vaso.
+As variáveis, funções e arquivos da aplicação usam nomes em português. O modelo `Usuario` usa `@@map("User")` para preservar a tabela existente sem alterar seus dados. Nomes exigidos pelo desafio (`petFriendly`, `createdAt`, `updatedAt`) e propriedades das bibliotecas (`where`, `data`, `status`, `body`) mantêm o formato original. Os erros da API usam a chave `mensagem`.
+
+`src/rotas.ts` registra os endereços. `ControladorPlantas.ts` valida e escolhe o status HTTP. `RepositorioPlantas.ts` é a camada que consulta o Prisma. `prisma/schema.prisma` descreve o modelo e `prisma/migrations/` contém o histórico SQL. `testes/plantas.teste.mjs` testa a API real com PostgreSQL, incluindo oito vendas simultâneas do último vaso.
 
 Foram incluídos todos os bônus: busca por nome, ordenação, plantas esgotadas e seed. A API não tem autenticação, pagamentos ou histórico de vendas: a venda do desafio apenas decrementa o estoque. A branch de trabalho é `main`, conforme solicitação do usuário e o DESAFIO.md do projeto.
