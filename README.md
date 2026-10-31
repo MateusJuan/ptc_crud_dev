@@ -3,7 +3,7 @@
 Implementação do desafio com CRUD de plantas, filtros, venda com controle concorrente de estoque, total do estoque e todos os bônus. O CRUD de usuários do treinamento continua disponível.
 
 - [Documento completo da API: instalação, modelo, rotas, exemplos e erros](API.md)
-- [Relatório do trabalho e uso de IA](RELATORIO.md)
+- [Relatório do trabalho e uso de IA em PDF](output/pdf/Relatorio_Folhagem_e_Cia.pdf)
 
 Com Docker Desktop aberto e `.env` copiado de `.env.example`:
 
