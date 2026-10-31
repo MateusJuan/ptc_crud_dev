@@ -15,5 +15,5 @@
       "@banco": ["./src/banco/conexao"]
     }
   },
-  "minify": true
+  "minify": false
 }

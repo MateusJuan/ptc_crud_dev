@@ -16,7 +16,7 @@
     "test": "node --test testes/plantas.teste.mjs",
     "seed": "cross-env DATABASE_HOST=localhost node prisma/popularBanco.mjs",
     "seed:docker": "node prisma/popularBanco.mjs",
-    "build": "swc src --strip-leading-paths --out-dir dist",
+    "build": "swc src --strip-leading-paths --out-dir dist --delete-dir-on-start && node scripts/formatarDist.mjs",
     "start": "node dist/servidor.js",
     "prod": "yarn migration:deploy && yarn build && yarn start"
   },
