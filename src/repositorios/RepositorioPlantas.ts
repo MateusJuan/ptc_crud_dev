@@ -15,8 +15,7 @@ export const buscarPlantaPorId = (id: number) =>
 export const atualizarPlanta = (id: number, dados: Prisma.PlantaUpdateInput) =>
   prisma.planta.update({ where: { id }, data: dados });
 
-export const excluirPlanta = (id: number) =>
-  prisma.planta.delete({ where: { id } });
+export const excluirPlanta = (id: number) => prisma.planta.delete({ where: { id } });
 
 export const venderPlanta = (id: number, quantidade: number) =>
   prisma.$transaction(async (transacao) => {
@@ -41,7 +40,10 @@ export const calcularValorEstoque = async () => {
     valor += BigInt(planta.preco) * BigInt(planta.estoque);
     vasos += BigInt(planta.estoque);
   }
-  if (valor > BigInt(Number.MAX_SAFE_INTEGER) || vasos > BigInt(Number.MAX_SAFE_INTEGER)) {
+  if (
+    valor > BigInt(Number.MAX_SAFE_INTEGER) ||
+    vasos > BigInt(Number.MAX_SAFE_INTEGER)
+  ) {
     throw new Error("Total do estoque excede o limite numérico seguro da API.");
   }
   return { valorTotalEmCentavos: Number(valor), totalDeVasos: Number(vasos) };

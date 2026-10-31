@@ -18,6 +18,8 @@ npm.cmd test
 
 Exemplos opcionais: `docker compose exec -T server yarn seed:docker`. A API fica em `http://localhost:3001`. O teste HTTP usa a API e o PostgreSQL locais e remove as plantas temporárias ao terminar.
 
+Para organizar a indentação, os espaços e as quebras de linha, execute `npm.cmd run formatar`. Para conferir o padrão sem alterar os arquivos, use `npm.cmd run verificar:formatacao`. A configuração utiliza dois espaços e limita as linhas de código a 90 caracteres quando possível.
+
 ## Referência original do treinamento
 
 API de exemplo com um **CRUD de usuários** para o treinamento de back-end dos aspirantes.
@@ -26,9 +28,9 @@ API de exemplo com um **CRUD de usuários** para o treinamento de back-end dos a
 
 > **CRUD** = **C**reate, **R**ead, **U**pdate e **D**elete: as quatro operações básicas de qualquer cadastro (criar, listar/buscar, editar e remover).
 
-| Arquivo | O que tem |
-|---|---|
-| `README.md` (este) | Como rodar o projeto e como o CRUD de usuários funciona |
+| Arquivo                    | O que tem                                                         |
+| -------------------------- | ----------------------------------------------------------------- |
+| `README.md` (este)         | Como rodar o projeto e como o CRUD de usuários funciona           |
 | [`DESAFIO.md`](DESAFIO.md) | O enunciado do desafio Folhagem & Cia: o que construir e entregar |
 
 ---
@@ -71,23 +73,23 @@ Para conferir, abra `http://localhost:3001` no navegador. Deve aparecer:
 
 O `.env` guarda as configurações do projeto e **não vai para o git**. Os valores do `.env.example` já funcionam na sua máquina, então não precisa trocar nada. As únicas variáveis que você pode querer mexer:
 
-| Variável | Quando mexer |
-|---|---|
-| `SERVER_PORT` | A porta 3001 já está em uso |
+| Variável        | Quando mexer                                                                    |
+| --------------- | ------------------------------------------------------------------------------- |
+| `SERVER_PORT`   | A porta 3001 já está em uso                                                     |
 | `DATABASE_PORT` | A porta 5432 já está em uso (por exemplo, por um Postgres instalado na máquina) |
 
-> **Por que o host do banco é `treinamento-crud-db` e não `localhost`?** A API roda *dentro* do Docker e enxerga o banco pelo nome do container. Os comandos que rodam na sua máquina (`yarn migration` e `yarn studio`) trocam o host para `localhost` sozinhos.
+> **Por que o host do banco é `treinamento-crud-db` e não `localhost`?** A API roda _dentro_ do Docker e enxerga o banco pelo nome do container. Os comandos que rodam na sua máquina (`yarn migration` e `yarn studio`) trocam o host para `localhost` sozinhos.
 
 ### Comandos do dia a dia
 
-| Comando | O que faz |
-|---|---|
-| `docker compose up -d` | Sobe a API e o banco |
-| `docker compose logs -f server` | Mostra os logs da API (é aqui que os erros aparecem) |
-| `docker compose down` | Derruba os containers (os dados do banco continuam salvos) |
-| `yarn migration` | Cria uma migration a partir do `schema.prisma` e aplica no banco |
-| `yarn studio` | Abre o Prisma Studio para ver o banco no navegador |
-| `yarn typecheck` | Procura erros de tipo no TypeScript |
+| Comando                         | O que faz                                                        |
+| ------------------------------- | ---------------------------------------------------------------- |
+| `docker compose up -d`          | Sobe a API e o banco                                             |
+| `docker compose logs -f server` | Mostra os logs da API (é aqui que os erros aparecem)             |
+| `docker compose down`           | Derruba os containers (os dados do banco continuam salvos)       |
+| `yarn migration`                | Cria uma migration a partir do `schema.prisma` e aplica no banco |
+| `yarn studio`                   | Abre o Prisma Studio para ver o banco no navegador               |
+| `yarn typecheck`                | Procura erros de tipo no TypeScript                              |
 
 A API recarrega sozinha quando você salva um arquivo em `src/`. Só precisa rodar `docker compose up -d --build` de novo se mudar o `package.json` ou o `Dockerfile`.
 
@@ -121,21 +123,21 @@ Resposta  ←───────────────────┘  (stat
 
 ## 🔌 CRUD de usuários
 
-| Campo | Tipo | Observação |
-|---|---|---|
-| `id` | número | Gerado pelo banco (1, 2, 3...) |
-| `nome` | texto | Obrigatório |
-| `conta` | `"CPF"` ou `"CNPJ"` | Obrigatório, em maiúsculas |
-| `documento` | texto | Obrigatório e único (não pode repetir) |
-| `createdAt` / `updatedAt` | data | Preenchidos pelo banco |
+| Campo                     | Tipo                | Observação                             |
+| ------------------------- | ------------------- | -------------------------------------- |
+| `id`                      | número              | Gerado pelo banco (1, 2, 3...)         |
+| `nome`                    | texto               | Obrigatório                            |
+| `conta`                   | `"CPF"` ou `"CNPJ"` | Obrigatório, em maiúsculas             |
+| `documento`               | texto               | Obrigatório e único (não pode repetir) |
+| `createdAt` / `updatedAt` | data                | Preenchidos pelo banco                 |
 
-| Método | Rota | O que faz | Sucesso | Erros |
-|---|---|---|---|---|
-| `POST` | `/users` | Cadastra um usuário | `201` | `400` se faltar campo |
-| `GET` | `/users` | Lista todos os usuários | `200` | |
-| `GET` | `/users/:id` | Busca um usuário pelo id | `200` | `404` se o id não existir |
-| `PATCH` | `/users/:id` | Edita só os campos enviados | `200` | `404` se o id não existir |
-| `DELETE` | `/users/:id` | Remove o usuário | `204` | `404` se o id não existir |
+| Método   | Rota         | O que faz                   | Sucesso | Erros                     |
+| -------- | ------------ | --------------------------- | ------- | ------------------------- |
+| `POST`   | `/users`     | Cadastra um usuário         | `201`   | `400` se faltar campo     |
+| `GET`    | `/users`     | Lista todos os usuários     | `200`   |                           |
+| `GET`    | `/users/:id` | Busca um usuário pelo id    | `200`   | `404` se o id não existir |
+| `PATCH`  | `/users/:id` | Edita só os campos enviados | `200`   | `404` se o id não existir |
+| `DELETE` | `/users/:id` | Remove o usuário            | `204`   | `404` se o id não existir |
 
 Qualquer erro inesperado responde `500`.
 
@@ -161,16 +163,16 @@ Para o `PATCH`, envie só o que vai mudar: `{ "nome": "Maria S. Silva" }`.
 
 ## 🆘 Problemas comuns
 
-| Erro | O que fazer |
-|---|---|
-| `'cross-env' não é reconhecido como um comando` | Faltou instalar as dependências na sua máquina: rode `yarn`. |
-| `Environment variable not found: DATABASE_URL` | Falta o `.env` na raiz do projeto: `cp .env.example .env`. |
-| `failed to connect to the docker API` | O Docker Desktop está fechado. Abra e espere ele ficar pronto. |
-| `port is already allocated` | Troque `SERVER_PORT` ou `DATABASE_PORT` no `.env` e suba de novo. |
-| `Can't reach database server` | Os containers não estão de pé: `docker compose up -d`. |
-| `Property 'user' does not exist on type 'PrismaClient'` | Rode `yarn migration` e, no VS Code, **Ctrl+Shift+P → Restart TS Server**. |
-| A API não responde em `localhost:3001` | Veja o erro em `docker compose logs -f server`. |
-| `500` ao criar ou editar depois de mudar o `schema.prisma` | O banco ainda está com as colunas antigas: rode `yarn migration`. |
-| `SyntaxError: ... is not valid JSON` ou `req.body` chega `undefined` | O corpo não foi como JSON. Cole o JSON puro em **Body → JSON**. |
+| Erro                                                                 | O que fazer                                                                |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `'cross-env' não é reconhecido como um comando`                      | Faltou instalar as dependências na sua máquina: rode `yarn`.               |
+| `Environment variable not found: DATABASE_URL`                       | Falta o `.env` na raiz do projeto: `cp .env.example .env`.                 |
+| `failed to connect to the docker API`                                | O Docker Desktop está fechado. Abra e espere ele ficar pronto.             |
+| `port is already allocated`                                          | Troque `SERVER_PORT` ou `DATABASE_PORT` no `.env` e suba de novo.          |
+| `Can't reach database server`                                        | Os containers não estão de pé: `docker compose up -d`.                     |
+| `Property 'user' does not exist on type 'PrismaClient'`              | Rode `yarn migration` e, no VS Code, **Ctrl+Shift+P → Restart TS Server**. |
+| A API não responde em `localhost:3001`                               | Veja o erro em `docker compose logs -f server`.                            |
+| `500` ao criar ou editar depois de mudar o `schema.prisma`           | O banco ainda está com as colunas antigas: rode `yarn migration`.          |
+| `SyntaxError: ... is not valid JSON` ou `req.body` chega `undefined` | O corpo não foi como JSON. Cole o JSON puro em **Body → JSON**.            |
 
 > Dica: rode `yarn typecheck` antes de testar. A API não mostra erros de tipo ao rodar, mas o `typecheck` mostra todos de uma vez.

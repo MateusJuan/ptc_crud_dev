@@ -38,18 +38,18 @@ Os testes criam plantas com nomes próprios e removem os registros ao final. Nã
 
 ## Modelo
 
-| Campo | Tipo | Regra |
-| --- | --- | --- |
-| id | inteiro | Positivo, automático |
-| nome | texto | Não vazio, espaços externos removidos |
-| especie | texto | Não vazio, espaços externos removidos |
-| preco | inteiro | Centavos, de 1 a 2147483647 |
-| estoque | inteiro | De 0 a 2147483647 |
-| luminosidade | enum | SOMBRA, MEIA_SOMBRA ou SOL_PLENO |
-| petFriendly | booleano | true ou false, sem aspas |
-| regaACadaDias | inteiro | De 1 a 2147483647 |
-| createdAt | data ISO | Gerada no cadastro |
-| updatedAt | data ISO | Atualizada pelo Prisma |
+| Campo         | Tipo     | Regra                                 |
+| ------------- | -------- | ------------------------------------- |
+| id            | inteiro  | Positivo, automático                  |
+| nome          | texto    | Não vazio, espaços externos removidos |
+| especie       | texto    | Não vazio, espaços externos removidos |
+| preco         | inteiro  | Centavos, de 1 a 2147483647           |
+| estoque       | inteiro  | De 0 a 2147483647                     |
+| luminosidade  | enum     | SOMBRA, MEIA_SOMBRA ou SOL_PLENO      |
+| petFriendly   | booleano | true ou false, sem aspas              |
+| regaACadaDias | inteiro  | De 1 a 2147483647                     |
+| createdAt     | data ISO | Gerada no cadastro                    |
+| updatedAt     | data ISO | Atualizada pelo Prisma                |
 
 Todos os sete campos de negócio são obrigatórios no POST. O limite dos inteiros acompanha o `Int` do PostgreSQL. `0` no estoque e `false` em petFriendly são válidos. Números enviados como texto, decimais, null, campos desconhecidos e corpos que não sejam objetos retornam 400. `id` e datas não podem ser definidos pelo cliente.
 
@@ -96,12 +96,12 @@ Sem corpo. Retorna 200 com uma lista de objetos no formato acima, ou `[]` quando
 
 Filtros opcionais podem ser combinados:
 
-| Parâmetro | Valores |
-| --- | --- |
-| luminosidade | SOMBRA, MEIA_SOMBRA, SOL_PLENO |
-| petFriendly | true, false |
-| nome | Trecho não vazio, sem diferenciar maiúsculas |
-| ordem | preco ou nome, em ordem crescente |
+| Parâmetro    | Valores                                      |
+| ------------ | -------------------------------------------- |
+| luminosidade | SOMBRA, MEIA_SOMBRA, SOL_PLENO               |
+| petFriendly  | true, false                                  |
+| nome         | Trecho não vazio, sem diferenciar maiúsculas |
+| ordem        | preco ou nome, em ordem crescente            |
 
 Exemplo: `GET /plantas?luminosidade=MEIA_SOMBRA&petFriendly=false&nome=COSTELA&ordem=preco`. Retorna uma lista com as plantas correspondentes. Filtros inválidos, desconhecidos ou repetidos retornam 400. Falhas inesperadas retornam 500.
 

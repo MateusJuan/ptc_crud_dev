@@ -18,7 +18,8 @@ services:
   db:
     image: postgres:16
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB -p $$DATABASE_PORT"]
+      test:
+        ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB -p $$DATABASE_PORT"]
       interval: 5s
       timeout: 5s
       retries: 20

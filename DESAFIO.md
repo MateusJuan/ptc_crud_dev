@@ -10,31 +10,31 @@ O CRUD de usuários deste repositório (`UserController.ts` e `UserRepository.ts
 
 ## 1. A entidade `Planta`
 
-| Campo | Tipo | Exemplo | Observação |
-|---|---|---|---|
-| `id` | Int (autoincrement) | `1` | Gerado pelo banco |
-| `nome` | String | `"Costela-de-adão"` | Nome popular |
-| `especie` | String | `"Monstera deliciosa"` | Nome científico |
-| `preco` | Int | `8990` | Em **centavos** (`8990` = R$ 89,90) |
-| `estoque` | Int | `12` | Vasos disponíveis |
-| `luminosidade` | Enum `Luminosidade` | `"MEIA_SOMBRA"` | `SOMBRA`, `MEIA_SOMBRA` ou `SOL_PLENO` |
-| `petFriendly` | Boolean | `true` | Segura para cães e gatos? |
-| `regaACadaDias` | Int | `3` | De quantos em quantos dias regar |
-| `createdAt` / `updatedAt` | DateTime | | Automáticos, como no `User` |
+| Campo                     | Tipo                | Exemplo                | Observação                             |
+| ------------------------- | ------------------- | ---------------------- | -------------------------------------- |
+| `id`                      | Int (autoincrement) | `1`                    | Gerado pelo banco                      |
+| `nome`                    | String              | `"Costela-de-adão"`    | Nome popular                           |
+| `especie`                 | String              | `"Monstera deliciosa"` | Nome científico                        |
+| `preco`                   | Int                 | `8990`                 | Em **centavos** (`8990` = R$ 89,90)    |
+| `estoque`                 | Int                 | `12`                   | Vasos disponíveis                      |
+| `luminosidade`            | Enum `Luminosidade` | `"MEIA_SOMBRA"`        | `SOMBRA`, `MEIA_SOMBRA` ou `SOL_PLENO` |
+| `petFriendly`             | Boolean             | `true`                 | Segura para cães e gatos?              |
+| `regaACadaDias`           | Int                 | `3`                    | De quantos em quantos dias regar       |
+| `createdAt` / `updatedAt` | DateTime            |                        | Automáticos, como no `User`            |
 
 ---
 
 ## 2. Rotas
 
-| Método | Rota | O que faz | Sucesso |
-|---|---|---|---|
-| `POST` | `/plantas` | Cadastra uma planta | `201` |
-| `GET` | `/plantas` | Lista as plantas, com filtros opcionais `?luminosidade=` e `?petFriendly=` (sozinhos ou juntos) | `200` |
-| `GET` | `/plantas/:id` | Busca uma planta | `200` |
-| `PATCH` | `/plantas/:id` | Edita só os campos enviados | `200` |
-| `DELETE` | `/plantas/:id` | Remove uma planta | `204` |
-| `POST` | `/plantas/:id/venda` | Recebe `{ "quantidade": 2 }` e diminui o estoque | `200` |
-| `GET` | `/plantas/estoque/valor-total` | Soma `preco × estoque` e o total de vasos: `{ "valorTotalEmCentavos": 154300, "totalDeVasos": 37 }` | `200` |
+| Método   | Rota                           | O que faz                                                                                           | Sucesso |
+| -------- | ------------------------------ | --------------------------------------------------------------------------------------------------- | ------- |
+| `POST`   | `/plantas`                     | Cadastra uma planta                                                                                 | `201`   |
+| `GET`    | `/plantas`                     | Lista as plantas, com filtros opcionais `?luminosidade=` e `?petFriendly=` (sozinhos ou juntos)     | `200`   |
+| `GET`    | `/plantas/:id`                 | Busca uma planta                                                                                    | `200`   |
+| `PATCH`  | `/plantas/:id`                 | Edita só os campos enviados                                                                         | `200`   |
+| `DELETE` | `/plantas/:id`                 | Remove uma planta                                                                                   | `204`   |
+| `POST`   | `/plantas/:id/venda`           | Recebe `{ "quantidade": 2 }` e diminui o estoque                                                    | `200`   |
+| `GET`    | `/plantas/estoque/valor-total` | Soma `preco × estoque` e o total de vasos: `{ "valorTotalEmCentavos": 154300, "totalDeVasos": 37 }` | `200`   |
 
 ---
 
@@ -55,7 +55,7 @@ O CRUD de usuários deste repositório (`UserController.ts` e `UserRepository.ts
 - 🔎 Busca por nome sem diferenciar maiúsculas: `?nome=costela`
 - ↕️ Ordenação: `?ordem=preco` ou `?ordem=nome`
 - 🏷️ Rota `GET /plantas/esgotadas`, que lista as plantas com estoque zero
-- 🌱 Script de *seed* com plantas de exemplo
+- 🌱 Script de _seed_ com plantas de exemplo
 
 Os bônus contam pontos extras, mas não compensam requisitos obrigatórios faltando.
 
@@ -87,14 +87,14 @@ São **dois**, enviados juntos pelo canal e no prazo informados pelos instrutore
 
 ## 6. Como vamos avaliar
 
-| Critério | O que olhamos |
-|---|---|
-| **Funcionamento** | Todas as rotas funcionam |
-| **Status HTTP** | O status certo em cada caso |
-| **Validações** | Regras respeitadas, mensagens claras |
-| **Organização** | Controller e repository separados |
-| **Prisma** | Model, migration, `where` e enum |
-| **Código limpo** | Nomes claros, sem código morto, commits organizados |
-| **Documento** | Completo, claro e fiel ao que a API realmente faz |
+| Critério          | O que olhamos                                       |
+| ----------------- | --------------------------------------------------- |
+| **Funcionamento** | Todas as rotas funcionam                            |
+| **Status HTTP**   | O status certo em cada caso                         |
+| **Validações**    | Regras respeitadas, mensagens claras                |
+| **Organização**   | Controller e repository separados                   |
+| **Prisma**        | Model, migration, `where` e enum                    |
+| **Código limpo**  | Nomes claros, sem código morto, commits organizados |
+| **Documento**     | Completo, claro e fiel ao que a API realmente faz   |
 
 Boa sorte e boas regas! 🪴
