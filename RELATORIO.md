@@ -43,11 +43,12 @@ Para conferir a implementação, solicitei as verificações ao assistente e rec
 - Eu solicitei a conferência dos totais com o banco vazio e o carregamento de exemplos pelo Docker e pelo Windows. O assistente confirmou os totais zerados e a permanência de três exemplos, sem duplicação.
 - Eu solicitei a confirmação de que o PostgreSQL estava saudável e a API disponível na porta 3001.
 
-## Minha reflexão pessoal — a completar antes da entrega
+## Minha reflexão pessoal
 
-Eu ainda preciso registrar aqui, com minhas próprias palavras, o que compreendi e revisei pessoalmente. Para completar essa parte, vou responder:
+Eu li todos os arquivos do projeto para acompanhar como o sistema está organizado. Entendi a rota como o endpoint que recebe uma chamada para executar determinada ação, como realizar uma venda ou cadastrar uma planta. Essa chamada é uma requisição, que pode trazer os dados necessários para a ação.
 
-- Como eu explico o caminho de uma requisição entre rota, controlador, repositório e banco?
-- Qual validação ou erro eu tive mais dificuldade de entender?
-- Como eu explico o risco de consultar o estoque e diminuí-lo em duas operações independentes?
-- Quais partes do código eu revisei ou testei pessoalmente, e o que aprendi com a ajuda do assistente?
+Na minha explicação inicial, associei o controlador à verificação dos campos obrigatórios, dos tipos e de como os dados devem ser utilizados. Com o ajuste técnico feito pelo assistente, descrevo seu papel de forma mais completa: o controlador recebe a requisição, valida os dados, chama o repositório e devolve uma resposta com o status HTTP correspondente.
+
+Eu também descrevi o repositório como o lugar onde ficam os códigos e as configurações do sistema. Essa descrição corresponde ao repositório Git. Para explicar a organização interna da API, faço a distinção: a camada de repositório, como o arquivo RepositorioPlantas.ts, é responsável pelas consultas e alterações no banco por meio do Prisma. Assim, o caminho de uma requisição passa pela rota, pelo controlador, pelo repositório e pelo banco, até retornar uma resposta.
+
+Minha dificuldade prática inicial foi colocar o Docker para funcionar, pois eu já havia tentado instalá-lo antes e encontrado problemas. Pedi ajuda ao assistente para preparar o ambiente e relatei os erros que apareceram depois. Na leitura do código, optei por nomes em português para facilitar meu entendimento e permitir uma verificação rápida das funções e variáveis.
