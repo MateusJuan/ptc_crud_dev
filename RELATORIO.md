@@ -1,48 +1,53 @@
 # Relatório do desafio Folhagem & Cia
 
-Este registro foi preparado com assistência do Codex a partir do trabalho realizado neste projeto. Deve ser revisado pelo candidato antes da entrega, especialmente a parte pessoal: ele não deve ser apresentado como um relato escrito integralmente sem IA.
+Eu realizei este desafio com a ajuda do Codex, um assistente de inteligência artificial da OpenAI. Neste relatório, descrevo o que foi desenvolvido, como organizei o trabalho, as dificuldades que apareceram e como utilizei o assistente.
 
-## O que foi feito
+## O que eu fiz
 
-Foi criado o modelo Planta com enum Luminosidade e migration PostgreSQL. Foram implementados cadastro, listagem com filtros, consulta por id, edição parcial, exclusão, venda e cálculo do valor total do estoque. Os quatro bônus também foram incluídos: busca por nome sem diferenciar maiúsculas, ordenação por nome ou preço, listagem de esgotadas e seed com exemplos.
+Eu parti do projeto-base com o CRUD de usuários e pedi ao assistente que me ajudasse a desenvolver a API de plantas da Folhagem & Cia. Com essa assistência, minha entrega passou a incluir o modelo Planta, o enum Luminosidade, a migration e as rotas de cadastro, listagem com filtros, consulta por id, edição parcial, exclusão, venda e cálculo do valor total do estoque.
 
-As validações aceitam estoque zero e petFriendly false, rejeitam números enviados como texto e aplicam as mesmas regras aos campos enviados no PATCH. A venda faz uma atualização condicional em transação para impedir estoque negativo quando há requisições simultâneas. O documento API.md contém as instruções e exemplos.
+Eu também incluí, com a ajuda do assistente, os quatro bônus: busca por nome sem diferenciar maiúsculas, ordenação por nome ou preço, listagem de plantas esgotadas e um script para carregar exemplos no banco.
 
-## Como foi feito
+Eu pedi que o assistente concluísse os requisitos e verificasse os casos de erro. A implementação aceita estoque zero e petFriendly false, rejeita números enviados como texto e valida os campos enviados na edição parcial. Para a venda, o assistente implementou uma atualização condicional dentro de uma transação, impedindo que compras simultâneas deixem o estoque negativo. Também pedi a preparação da documentação no arquivo API.md.
 
-Por preferência do usuário, as funções, variáveis, arquivos e pastas da aplicação foram renomeados em português. Os imports, os testes, a compilação e os comandos de execução foram atualizados. O modelo Usuario preserva a tabela User com `@@map`, sem mudança física no banco. Os campos exigidos pelo desafio e os identificadores das bibliotecas foram preservados.
+## Como eu organizei o trabalho
 
-Primeiro foi importado o projeto-base com o CRUD de usuários. Depois foram preparados Docker Desktop, WSL 2 e PostgreSQL, e o CRUD existente foi testado. Em seguida foram criados o modelo e a migration das plantas, depois o repositório, o controlador, as rotas, os bônus e os testes HTTP. O trabalho permaneceu em main por solicitação do usuário.
+Eu comecei fornecendo o enunciado e o repositório-base ao assistente. Primeiro, pedi ajuda para preparar o ambiente e executar o CRUD de usuários. Depois, solicitei a criação do modelo Planta e da migration. Em seguida, pedi que o assistente concluísse os repositórios, os controladores, as rotas, os bônus, os testes e a documentação.
 
-Foi mantida a separação do projeto: controlador para validação e respostas; repositório para acesso ao Prisma. Os preços são inteiros em centavos. A lista permite combinar os filtros em uma consulta. O total do estoque é calculado em código a partir de preço e quantidade. Foi usada uma soma BigInt para evitar arredondamento e verificado o limite antes de responder em JSON.
+Eu preferi manter o trabalho na branch main e optei por deixar os nomes das variáveis, funções, arquivos e pastas em português para facilitar meu entendimento e permitir uma verificação rápida do código. O assistente ajustou os imports, os testes e os comandos de execução, preservando os nomes exigidos pelo desafio e pelas bibliotecas. O modelo Usuario utiliza `@@map("User")` para manter a tabela existente sem alterar seus dados.
 
-## Dificuldades observadas durante o trabalho
+Na organização do meu projeto, mantive com a ajuda do assistente a separação entre rotas, controladores e repositórios. Os controladores validam os dados e definem as respostas HTTP; os repositórios consultam o banco com Prisma. Os preços ficam em centavos, e o cálculo do estoque utiliza BigInt internamente para evitar arredondamento antes da conversão para números JSON.
 
-O ambiente não tinha WSL instalado e o Docker precisava dos componentes de virtualização do Windows. O WSL e o Docker foram instalados, os componentes habilitados e o computador reiniciado pelo usuário. A primeira inicialização do Docker precisou copiar suas imagens internas, o que demorou alguns minutos.
+Eu solicitei o registro das alterações no Git. O histórico contém commits de implementação, documentação, tradução dos nomes e correções. A implementação principal ficou concentrada em um commit, em vez de ter um commit separado para cada etapa do enunciado.
 
-O PostgreSQL ainda estava inicializando na primeira tentativa de migration, causando P1001. Após confirmar sua prontidão a migration funcionou; foi acrescentado um healthcheck ao Compose para a API aguardar o banco nas próximas inicializações.
+## Quais dificuldades eu encontrei
 
-Após editar arquivos do servidor, o processo de desenvolvimento precisou ser reiniciado antes dos testes HTTP. Os testes são executados contra a API e o banco reais para verificar os status, a persistência e as vendas concorrentes.
+Minha primeira dificuldade foi configurar o Docker. Eu já havia tentado instalá-lo antes e encontrado um problema que associei à compatibilidade com o Windows. Pedi ao assistente que verificasse e configurasse o ambiente. Ele identificou a ausência do WSL, instalou o WSL 2 e o Docker Desktop e habilitou os componentes necessários. Eu reiniciei o computador para aplicar essas alterações.
 
-## Uso de IA
+Durante a preparação, o assistente encontrou o erro P1001 porque o PostgreSQL ainda estava inicializando na primeira tentativa de aplicar a migration. Depois que o banco ficou pronto, ele conseguiu aplicá-la. Para evitar esse problema nas próximas inicializações, o assistente adicionou uma verificação de prontidão do banco ao Docker Compose.
 
-Foi utilizado o Codex, da OpenAI, para preparar o ambiente, ler os requisitos, gerar e editar código, executar comandos, criar testes e preparar a documentação. A conferência técnica incluiu geração do Prisma Client, aplicação e verificação das migrations, typecheck e testes HTTP. O teste de concorrência tenta vender oito vezes um único vaso e exige exatamente uma resposta 200, sete respostas 400 e estoque final zero.
+Eu também encontrei avisos no VS Code sobre os tipos do modelo Usuario, opções depreciadas do TypeScript e o endereço do schema do SWC. Enviei essas mensagens ao assistente, que regenerou o Prisma Client, ajustou as configurações e verificou a compilação e os testes. Ele também me orientou a selecionar o TypeScript do projeto e reiniciar o servidor TypeScript do editor para atualizar os avisos antigos.
 
-## Verificações realizadas
+## Como eu utilizei IA
 
-- Migration da Planta aplicada e `prisma migrate status` sem pendências.
-- `npm.cmd run typecheck` sem erros.
-- `npm.cmd run build` compilou os sete arquivos TypeScript.
-- `npm.cmd test` passou com PostgreSQL real: cadastro, campos obrigatórios, tipos e limites inválidos, PATCH, filtros, buscas, ordenação, esgotadas, totais, venda, oito vendas simultâneas e exclusão.
-- Totais zerados verificados antes de adicionar exemplos ao banco vazio.
-- Seed executado uma vez pelo Docker e outra pelo Windows, mantendo três plantas sem duplicação.
-- Contêiner do PostgreSQL saudável e API disponível na porta 3001.
+Eu utilizei o Codex como um assistente durante boa parte do desafio. Pedi ajuda para ler os requisitos, configurar o ambiente, gerar e editar código, corrigir erros, criar testes e preparar a documentação. O assistente executou os comandos e realizou as verificações técnicas; não apresento essas ações como testes que executei pessoalmente.
 
-## Reflexão pessoal a preencher pelo candidato
+Para conferir a implementação, solicitei as verificações ao assistente e recebi os resultados da geração do Prisma Client, da aplicação das migrations, da checagem de tipos, da compilação e dos testes HTTP com PostgreSQL real. No teste de concorrência, o assistente enviou oito tentativas de venda para um único vaso: uma retornou 200, sete retornaram 400 e o estoque final ficou em zero.
 
-- O que você entendeu sobre o caminho rota → controlador → repositório → banco?
-- Qual validação ou erro teve mais dificuldade de entender e como verificou a solução?
-- Explique com suas palavras por que ler o estoque e decrementar em duas operações independentes permite uma venda indevida.
-- Que partes do código você revisou, alterou ou testou pessoalmente e o que aprendeu com a ajuda de IA?
+## Quais verificações eu solicitei
 
-Essas respostas devem registrar sua experiência real. Não foram inventadas pela IA.
+- Eu solicitei a aplicação da migration da Planta e a confirmação de que não havia migrations pendentes.
+- Eu solicitei a checagem de tipos com `npm.cmd run typecheck`, que terminou sem erros.
+- Eu solicitei a compilação com `npm.cmd run build`, que compilou os sete arquivos TypeScript.
+- Eu solicitei os testes com `npm.cmd test`, que passaram com a API e o PostgreSQL reais, cobrindo cadastro, campos obrigatórios, valores inválidos, edição parcial, filtros, busca, ordenação, plantas esgotadas, totais, vendas simultâneas e exclusão.
+- Eu solicitei a conferência dos totais com o banco vazio e o carregamento de exemplos pelo Docker e pelo Windows. O assistente confirmou os totais zerados e a permanência de três exemplos, sem duplicação.
+- Eu solicitei a confirmação de que o PostgreSQL estava saudável e a API disponível na porta 3001.
+
+## Minha reflexão pessoal — a completar antes da entrega
+
+Eu ainda preciso registrar aqui, com minhas próprias palavras, o que compreendi e revisei pessoalmente. Para completar essa parte, vou responder:
+
+- Como eu explico o caminho de uma requisição entre rota, controlador, repositório e banco?
+- Qual validação ou erro eu tive mais dificuldade de entender?
+- Como eu explico o risco de consultar o estoque e diminuí-lo em duas operações independentes?
+- Quais partes do código eu revisei ou testei pessoalmente, e o que aprendi com a ajuda do assistente?
